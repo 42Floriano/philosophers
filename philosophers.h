@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosopher.h                                      :+:      :+:    :+:   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:18:55 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/15 14:53:24 by falberti         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:11:27 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHER_H
-# define PHILOSOPHER_H
+#ifndef PHILOSOPHERS_H
+# define PHILOSOPHERS_H
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
 # include <limits.h>
+
+/*
+** ANSI Escape Sequences for Bold Text Colors
+** Usage: 
+**     printf(R "This is red text." RST);
+**     printf(B "This is blue text." RST);
+** Remember to use RST to reset the color after setting it.
+*/
+
+# define RST    "\033[0m"      /* Reset to default color */
+# define RED	"\033[1;31m"   /* Bold Red */
+# define G      "\033[1;32m"   /* Bold Green */
 
 typedef struct s_table	t_table;
 typedef pthread_mutex_t t_mtx;
@@ -48,10 +61,12 @@ struct s_table
 	long	time_to_eat;
 	long	time_to_sleep;
 	long	nbr_limit_meals;
-	long	start_simulation;
 	int		end_simulation;
 	t_fork	*forks;
 	t_philo	*philos;
 }			t_table;
+
+
+void	error_exit(char *error);
 
 #endif
