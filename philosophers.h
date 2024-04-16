@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:18:55 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/15 16:11:27 by falberti         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:15:10 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ struct s_table
 	t_philo	*philos;
 }			t_table;
 
-
+// Utils
 void	error_exit(char *error);
+
+// Parsing
+void	parse_input(t_table *table, char **av);
 
 #endif
