@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:18:55 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/16 12:15:10 by falberti         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:17:01 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define RED	"\033[1;31m"   /* Bold Red */
 # define G      "\033[1;32m"   /* Bold Green */
 
-typedef struct s_table	t_table;
-typedef pthread_mutex_t t_mtx;
+typedef struct s_table		t_table;
+typedef pthread_mutex_t		t_mtx;
 
 // ./ philo 5 800 200 200 [5]
 typedef struct s_fork
@@ -71,5 +71,8 @@ void	error_exit(char *error);
 
 // Parsing
 void	parse_input(t_table *table, char **av);
+
+// Init 
+void	data_init(t_table *table);
 
 #endif

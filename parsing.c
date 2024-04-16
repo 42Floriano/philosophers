@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:12:45 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/16 12:44:45 by falberti         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:13:50 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,47 +32,53 @@ static const char	*valid_input(const char *str)
 	const char	*number;
 
 	len = 0;
-	while (is_space(str[len]))
-		len++;
-	if (str[len] == '+')
-		len++;
-	else if (str[len] == '-')
+	while (is_space(*str))
+		str++;
+	if (*str == '+')
+		str++;
+	else if (*str == '-')
 		error_exit("Only positive numbers please");
-	if (!is_digit(str[len]))
+	if (!is_digit(*str))
 		error_exit("Input is not a correct digit");
-	while ()
-	return ();
+	number = str;
+	while (is_digit(*str++))
+		len++;
+	if (len > 10)
+		error_exit("The value is too big, INT_MAX is the limit");
+	return (number);
 }
 
 static long	ft_atol(const char *str)
 {
-	int		i;
 	long	num;
-	int		neg;
 
-	i = 0;
 	num = 0;
-	neg = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-		i++;
-	if (str[i] == 43 || str[i] == 45)
+	str = valid_input(str);
+	while (is_digit(*str))
 	{
-		if (str[i] == 45)
-			neg++;
-		i++;
+		num = (num * 10) + (*str - 48);
+		str++;
 	}
-	while (str[i] && (str[i] >= 48 && str[i] <= 57))
-	{
-		num = num * 10 + (str[i] - 48);
-		i++;
-	}
-	if (neg == 1)
-		num *= -1;
+	if (num > INT_MAX)
+		error_exit("The value is too big, INT_MAX is the limit");
 	return (num);
 }
 
 // ./ philo 5 800 200 200 [5]
+// millisecond to micro secondes
 void	parse_input(t_table *table, char **av)
 {
 	table->philo_nbr = ft_atol(av[1]);
+	table->time_to_die = ft_atol(av[2]) * 1000;
+	table->time_to_eat = ft_atol(av[3]) * 1000;
+	table->time_to_sleep = ft_atol(av[4]) * 1000;
+	if (table->time_to_die < 60000
+		|| table->time_to_eat < 60000
+		|| table->time_to_sleep < 60000)
+		error_exit("All timestamps must be greater than 60ms");
+	if (av[5])
+		table->nbr_limit_meals = ft_atol(av[5]);
+	else
+		table->nbr_limit_meals = -1;
+	return ;
 }
