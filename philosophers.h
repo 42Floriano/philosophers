@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:18:55 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/16 13:17:01 by falberti         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:36:46 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ struct s_table
 	long	time_to_eat;
 	long	time_to_sleep;
 	long	nbr_limit_meals;
+	long	start_simulation;
 	int		end_simulation;
 	t_fork	*forks;
 	t_philo	*philos;
@@ -68,6 +69,7 @@ struct s_table
 
 // Utils
 void	error_exit(char *error);
+void	*safe_malloc(size_t bytes);
 
 // Parsing
 void	parse_input(t_table *table, char **av);
