@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:18:55 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/16 13:36:46 by falberti         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:05:34 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ typedef struct s_philo
 	long			meals_count;
 	int				full;
 	long			last_meal_time;
-	t_fork			*left_fork;
-	t_fork			*right_fork;
+	t_fork			*first_fork;
+	t_fork			*second_fork;
 	pthread_t		thread_id;
 	t_table			*table;
 }				t_philo;

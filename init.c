@@ -6,23 +6,32 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:15:50 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/16 14:04:02 by falberti         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:08:24 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void assign_forks(t_philo *philo, t_fork *forks, int pos)
+static void	assign_forks(t_philo *philo, t_fork *forks, int pos)
 {
-	
+	int	philo_nb;
+
+	philo_nb = philo->table->philo_nbr;
+	philo->second_fork = &forks[(pos + 1) % philo_nb];
+	philo->first_fork = &forks[pos];
+	if (philo->id % 2)
+	{
+	philo->first_fork = &forks[pos];
+	philo->second_fork = &forks[(pos + 1) % philo_nb];
+	}
 	return ;
 }
 
-static void philo_init(t_table *table)
+static void	philo_init(t_table *table)
 {
-	int	i;
-	t_philo *philo;
-	
+	int		i;
+	t_philo	*philo;
+
 	i = 0;
 	while (i < table->philo_nbr)
 	{
@@ -32,7 +41,7 @@ static void philo_init(t_table *table)
 		philo->meals_count = 0;
 		philo->table = table;
 		assign_forks(philo, table->forks, i);
-
+		i++;
 	}
 	return ;
 }
@@ -44,7 +53,7 @@ void	data_init(t_table *table)
 	i = 0;
 	table->end_simulation = 0;
 	table->philo = safe_malloc(sizeof(t_philo) * table->philo_nbr);
-	table->forks = safe_malloc(sizeof(t_fork) * table->philo_nbr - 1);
+	table->forks = safe_malloc(sizeof(t_fork) * table->philo_nbr);
 	while (i < table->phili_nbr)
 	{
 		pthread_mutex_init(table->forks[i].fork, NULL);
