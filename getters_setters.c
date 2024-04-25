@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:47:37 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/25 17:02:36 by falberti         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:07:37 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,9 @@ long	get_long(t_mtx *mutex, long *value)
 	ret = *value;
 	pthread_mutex_unlock(mutex);
 	return (ret);
+}
+
+int	simulation_finished(t_table *table)
+{
+	return (get_int(table->table_mutex, &table->end_simulation));
 }

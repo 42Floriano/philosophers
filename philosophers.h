@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:18:55 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/25 17:04:27 by falberti         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:20:42 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@
 # define RST    "\033[0m"      /* Reset to default color */
 # define RED	"\033[1;31m"   /* Bold Red */
 # define G      "\033[1;32m"   /* Bold Green */
+
+typedef enum e_time_code
+{
+	SECOND,
+	MILLISEOND,
+	MICROSECOND,
+}				t_time_code;
 
 typedef struct s_table		t_table;
 typedef pthread_mutex_t		t_mtx;
@@ -84,5 +91,10 @@ void	set_int(t_mtx *mutex, int *dest, int value);
 int		get_int(t_mtx *mutex, int *value);
 void	set_long(t_mtx *mutex, long *dest, long value);
 long	get_long(t_mtx *mutex, long *value);
+int		simulation_finished(t_table *table);
+
+// Synchro Utils
+void	wait_all_threads(t_table *table);
+void	*dinner_simulation(void *data);
 
 #endif

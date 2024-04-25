@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:09:09 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/25 15:42:22 by falberti         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:16:00 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	*donner_simulation(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	
 	wait_all_thread(philo->talbe);
 }
 
@@ -38,6 +37,7 @@ void	dinner_start(t_table *table)
 			i++;
 		}
 	}
-	
+
+	set_int(&table->table_mutex, &table->all_threads_ready, 1);
 	return ;
 }
