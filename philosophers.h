@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:18:55 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/16 15:05:34 by falberti         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:04:27 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ struct s_table
 	long	nbr_limit_meals;
 	long	start_simulation;
 	int		end_simulation;
+	int		all_threads_ready;
+	t_mtx	table_mutex;
 	t_fork	*forks;
 	t_philo	*philos;
 }			t_table;
@@ -76,5 +78,11 @@ void	parse_input(t_table *table, char **av);
 
 // Init 
 void	data_init(t_table *table);
+
+// Getters & Setters
+void	set_int(t_mtx *mutex, int *dest, int value);
+int		get_int(t_mtx *mutex, int *value);
+void	set_long(t_mtx *mutex, long *dest, long value);
+long	get_long(t_mtx *mutex, long *value);
 
 #endif
