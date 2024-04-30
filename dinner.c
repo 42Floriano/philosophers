@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:09:09 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/25 17:16:00 by falberti         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:13:12 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@ void	*donner_simulation(void *data)
 
 	philo = (t_philo *)data;
 	wait_all_thread(philo->talbe);
+	while (!simulation_finished(philo->table))
+	{
+		// 1) am I full ?
+		if (philo->full)
+			break;
+		// 2) eat
+		eat(philo);	
+		// 3) sleep
+		
+		// 4) think
+		thinking(philo);
+	}
 }
 
 void	dinner_start(t_table *table)
@@ -37,7 +49,13 @@ void	dinner_start(t_table *table)
 			i++;
 		}
 	}
-
+	table->start_simulation = gettime(MILLISEOND);
+	
 	set_int(&table->table_mutex, &table->all_threads_ready, 1);
+
+	i = 0;
+	while (i < table->philo_nbr)
+		pthread_join(&table->philo[i].thread_id, NULL);
+	
 	return ;
 }

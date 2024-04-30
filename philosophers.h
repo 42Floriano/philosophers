@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:18:55 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/25 17:20:42 by falberti         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:24:09 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,16 @@ struct s_table
 	int		end_simulation;
 	int		all_threads_ready;
 	t_mtx	table_mutex;
+	t_mtx	write_lock;
 	t_fork	*forks;
 	t_philo	*philos;
-}			t_table;
+};
 
 // Utils
 void	error_exit(char *error);
 void	*safe_malloc(size_t bytes);
+long	gettime(t_time_code time_code);
+void	precise_usleep(long usec, t_table *table);
 
 // Parsing
 void	parse_input(t_table *table, char **av);
