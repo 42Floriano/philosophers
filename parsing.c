@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:12:45 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/06 14:46:07 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:37:21 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 static inline int	is_digit(char c)
 {
-	printf("test %c", c);
-	if ((c >= '0' && c <= '9'))
+	if ((c >= 48 && c <= 57))
 		return (1);
 	return (0);
 }

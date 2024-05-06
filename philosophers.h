@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:18:55 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/06 14:31:41 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:42:17 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 typedef enum e_time_code
 {
 	SECOND,
-	MILLISEOND,
+	MILLISECOND,
 	MICROSECOND,
 }				t_time_code;
 

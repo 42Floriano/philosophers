@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:09:09 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/06 14:23:32 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:46:41 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	eat(t_philo *philo)
 	write_status(TAKE_FIRST_FORK, philo, DEBUG_MODE);
 	pthread_mutex_lock(&philo->second_fork->fork);
 	write_status(TAKE_SECOND_FORK, philo, DEBUG_MODE);
-	set_long(&philo->philo_mutex, &philo->last_meal_time, gettime(MILLISEOND));
+	set_long(&philo->philo_mutex, &philo->last_meal_time, gettime(MILLISECOND));
 	philo->meals_count++;
 	write_status(EATING, philo, DEBUG_MODE);
 	precise_usleep(philo->table->time_to_eat, philo->table);
@@ -63,19 +63,21 @@ void	dinner_start(t_table *table)
 		;
 	else
 	{
-		while (table->philo_nbr < i)
+		while (table->philo_nbr > i)
 		{
-			pthread_create(&table->philos[i].thread_id, NULL, dinner_simulation, NULL);
+			pthread_create(&table->philos[i].thread_id, NULL, dinner_simulation, &table->philos[i]);
+			printf("T1.5 %d  \n", i);
+			fflush(stdout);
 			i++;
 		}
 	}
-	table->start_simulation = gettime(MILLISEOND);
-
+	table->start_simulation = gettime(MILLISECOND);
 	set_int(&table->table_mutex, &table->all_threads_ready, 1);
-
 	i = 0;
 	while (i < table->philo_nbr)
+	{
 		pthread_join(table->philos[i].thread_id, NULL);
-
+		i++;
+	}
 	return ;
 }

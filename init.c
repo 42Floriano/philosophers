@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:15:50 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/06 14:32:31 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:46:08 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static void	assign_forks(t_philo *philo, t_fork *forks, int pos)
 	int	philo_nb;
 
 	philo_nb = philo->table->philo_nbr;
-	philo->second_fork = &forks[(pos + 1) % philo_nb];
-	philo->first_fork = &forks[pos];
-	if (philo->id % 2)
+	philo->first_fork = &forks[(pos + 1) % philo_nb];
+	philo->second_fork = &forks[pos];
+	if (philo->id % 2 == 0)
 	{
 	philo->first_fork = &forks[pos];
 	philo->second_fork = &forks[(pos + 1) % philo_nb];
@@ -39,8 +39,8 @@ static void	philo_init(t_table *table)
 		philo->id = i + 1;
 		philo->full = 0;
 		philo->meals_count = 0;
-		philo->table = table;
 		pthread_mutex_init(&philo->philo_mutex, NULL);
+		philo->table = table;
 		assign_forks(philo, table->forks, i);
 		i++;
 	}
@@ -55,9 +55,9 @@ void	data_init(t_table *table)
 	table->end_simulation = 0;
 	table->all_threads_ready = 0;
 	table->philos = safe_malloc(sizeof(t_philo) * table->philo_nbr);
+	table->forks = safe_malloc(sizeof(t_fork) * table->philo_nbr);
 	pthread_mutex_init(&table->table_mutex, NULL);
 	pthread_mutex_init(&table->write_lock, NULL);
-	table->forks = safe_malloc(sizeof(t_fork) * table->philo_nbr);
 	while (i < table->philo_nbr)
 	{
 		pthread_mutex_init(&table->forks[i].fork, NULL);
