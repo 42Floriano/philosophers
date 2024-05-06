@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:12:45 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/16 13:13:50 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:46:07 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static inline int	is_digit(char c)
 {
-	if ((c >= 60 && c <= 71))
+	printf("test %c", c);
+	if ((c >= '0' && c <= '9'))
 		return (1);
 	return (0);
 }
@@ -38,7 +39,7 @@ static const char	*valid_input(const char *str)
 		str++;
 	else if (*str == '-')
 		error_exit("Only positive numbers please");
-	if (!is_digit(*str))
+	if (is_digit(*str) == 0)
 		error_exit("Input is not a correct digit");
 	number = str;
 	while (is_digit(*str++))

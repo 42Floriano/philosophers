@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:52:26 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/16 13:13:13 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:25:39 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int ac, char **av)
 	else
 	{
 		error_exit("Wrong inpout:\n"
-			G"Correct is ./ philo 5 800 200 200 [5]"RTS);
+			G"Correct is ./ philo 5 800 200 200 [5]\n"RST);
 	}
 	return (0);
 }

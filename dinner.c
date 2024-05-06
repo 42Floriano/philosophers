@@ -6,30 +6,50 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:09:09 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/30 14:13:12 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:23:32 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	*donner_simulation(void *data)
+static void	thinking(t_philo *philo)
+{
+	write_status(THINKING, philo, DEBUG_MODE);
+}
+
+static void	eat(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->first_fork->fork);
+	write_status(TAKE_FIRST_FORK, philo, DEBUG_MODE);
+	pthread_mutex_lock(&philo->second_fork->fork);
+	write_status(TAKE_SECOND_FORK, philo, DEBUG_MODE);
+	set_long(&philo->philo_mutex, &philo->last_meal_time, gettime(MILLISEOND));
+	philo->meals_count++;
+	write_status(EATING, philo, DEBUG_MODE);
+	precise_usleep(philo->table->time_to_eat, philo->table);
+	if (philo->table->nbr_limit_meals > 0
+		&& philo->meals_count == philo->table->nbr_limit_meals)
+		set_int(&philo->philo_mutex, &philo->full, 1);
+	pthread_mutex_unlock(&philo->first_fork->fork);
+	pthread_mutex_unlock(&philo->second_fork->fork);
+}
+
+static void	*dinner_simulation(void *data)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	wait_all_thread(philo->talbe);
+	wait_all_threads(philo->table);
 	while (!simulation_finished(philo->table))
 	{
-		// 1) am I full ?
 		if (philo->full)
-			break;
-		// 2) eat
-		eat(philo);	
-		// 3) sleep
-		
-		// 4) think
+			break ;
+		eat(philo);
+		write_status(SLEEPING, philo, DEBUG_MODE);
+		precise_usleep(philo->table->time_to_sleep, philo->table);
 		thinking(philo);
 	}
+	return (NULL);
 }
 
 void	dinner_start(t_table *table)
@@ -50,12 +70,12 @@ void	dinner_start(t_table *table)
 		}
 	}
 	table->start_simulation = gettime(MILLISEOND);
-	
+
 	set_int(&table->table_mutex, &table->all_threads_ready, 1);
 
 	i = 0;
 	while (i < table->philo_nbr)
-		pthread_join(&table->philo[i].thread_id, NULL);
-	
+		pthread_join(table->philos[i].thread_id, NULL);
+
 	return ;
 }

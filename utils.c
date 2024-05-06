@@ -6,15 +6,15 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:55:38 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/30 14:22:34 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:33:41 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	error_exit(char *error)
+void	error_exit(char *error_msg)
 {
-	printf(RED"🚨 %s 🚨"RST, error);
+	printf(RED"🚨 %s 🚨"RST, error_msg);
 	exit(1);
 }
 
@@ -33,7 +33,7 @@ long	gettime(t_time_code time_code)
 	struct timeval	tv;
 
 	if (gettimeofday(&tv, NULL))
-		error_exit('Gettimeofthedaz failed');
+		error_exit("Gettimeofthedaz failed");
 	if (time_code == SECOND)
 		return (tv.tv_sec + (tv.tv_usec / 1000000));
 	else if (time_code == MILLISEOND)
@@ -47,8 +47,8 @@ long	gettime(t_time_code time_code)
 
 void	precise_usleep(long usec, t_table *table)
 {
-	long	start;
-	long	elapsed;
+	long		start;
+	long		elapsed;
 	long		rem;
 
 	start = gettime(MICROSECOND);
@@ -65,4 +65,23 @@ void	precise_usleep(long usec, t_table *table)
 			while (gettime(MICROSECOND) - start < usec)
 				;
 		}
+	}
+}
+
+void	clean(t_table *table)
+{
+	t_philo	*philo;
+	int		i;
+
+	i = 0;
+	while (table->philo_nbr >= i)
+	{
+		philo = table->philos + i;
+		pthread_mutex_destroy(&philo->philo_mutex);
+		i++;
+	}
+	pthread_mutex_destroy(&table->write_lock);
+	pthread_mutex_destroy(&table->table_mutex);
+	free(table->forks);
+	free(table->philos);
 }

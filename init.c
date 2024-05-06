@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:15:50 by falberti          #+#    #+#             */
-/*   Updated: 2024/04/30 14:26:04 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:32:31 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	philo_init(t_table *table)
 		philo->full = 0;
 		philo->meals_count = 0;
 		philo->table = table;
+		pthread_mutex_init(&philo->philo_mutex, NULL);
 		assign_forks(philo, table->forks, i);
 		i++;
 	}
