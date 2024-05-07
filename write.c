@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:26:39 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/06 16:42:30 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:01:48 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	write_status(t_philo_status status, t_philo *philo, int debug)
 {
 	long	elapsed;
 
-	elapsed = gettime(MILLISECOND);
+	elapsed = gettime(MILLISECOND) - philo->table->start_simulation;
 	if (philo->full)
 		return ;
 	pthread_mutex_lock(&philo->table->write_lock);

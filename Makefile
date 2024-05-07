@@ -9,7 +9,7 @@
 
 NAME        := philo
 CC        := gcc
-FLAGS    := -Wall -Wextra -Werror 
+FLAGS    := -Wall -Wextra -Werror -g
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
@@ -22,6 +22,7 @@ SRCS        :=      dinner.c \
                           synchro_utils.c \
                           utils.c \
                           write.c \
+						  monitor.c \
                           
 OBJS        := $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:52:26 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/06 15:37:41 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:01:39 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	main(int ac, char **av)
 {
 	t_table	table;
 
-	printf("Test");
 	if (ac == 5 || ac == 6)
 	{
 		// check errors & fills table

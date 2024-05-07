@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:18:55 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/06 16:42:17 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:07:13 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define C      "\033[1;36m"   /* Bold Cyan */
 # define W      "\033[1;37m"   /* Bold White */
 
-#define DEBUG_MODE 0
+#define DEBUG_MODE 1
 
 typedef enum e_time_code
 {
@@ -81,19 +81,24 @@ typedef struct s_philo
 
 struct s_table
 {
-	long	philo_nbr;
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_to_sleep;
-	long	nbr_limit_meals;
-	long	start_simulation;
-	int		end_simulation;
-	int		all_threads_ready;
-	t_mtx	table_mutex;
-	t_mtx	write_lock;
-	t_fork	*forks;
-	t_philo	*philos;
+	long		philo_nbr;
+	long		time_to_die;
+	long		time_to_eat;
+	long		time_to_sleep;
+	long		nbr_limit_meals;
+	long		start_simulation;
+	int			end_simulation;
+	int			all_threads_ready;
+	long		threads_running_nbr;
+	pthread_t	monitor;
+	t_mtx		table_mutex;
+	t_mtx		write_lock;
+	t_fork		*forks;
+	t_philo		*philos;
 };
+
+// Main
+void	dinner_start(t_table *table);
 
 // Utils
 void	error_exit(char *error);
@@ -117,7 +122,12 @@ int		simulation_finished(t_table *table);
 
 // Synchro Utils
 void	wait_all_threads(t_table *table);
-void	dinner_start(t_table *table);
+int		all_threads_running(t_mtx *mutex, long *threads, long philo_nbr);
+void	increase_long(t_mtx *mutex, long *value);
 
+// Write
 void	write_status(t_philo_status status, t_philo *philo, int debug);
+
+// Monitor 
+void	*monitor_dinner(void *data);
 #endif
