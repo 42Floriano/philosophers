@@ -6,12 +6,25 @@
 /*   By: albertini <albertini@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:26:39 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/08 11:54:34 by albertini        ###   ########.fr       */
+/*   Updated: 2024/05/08 13:34:49 by albertini        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/**
+ * Writes the detailed status of a philosopher to standard output,
+ * including interactions
+ * with forks, eating, sleeping, thinking, and dying.
+ * Uses specific visual representations and colors for different statuses.
+ *
+ * @param status The current status of the philosopher
+ * (e.g., taking forks, eating, etc.).
+ * @param philo Pointer to the philosopher 
+ * structure containing the philosopher's data.
+ * @param elapsed Time elapsed since the start 
+ * of the simulation in milliseconds.
+ */
 static void	w_stat_d(t_philo_status status, t_philo *philo, long elapsed)
 {
 	if (TAKE_FIRST_FORK == status && !simulation_finished(philo->table))
@@ -33,6 +46,17 @@ static void	w_stat_d(t_philo_status status, t_philo *philo, long elapsed)
 		printf(RED"\t\t💀💀💀 %6ld %d died   💀💀💀\n"RST, elapsed, philo->id);
 }
 
+/**
+ * Logs the status of a philosopher's actions, providing
+ * a less or more detailed view
+ * based on the debug flag. It also handles synchronization using mutex to ensure
+ * the correct order of log entries.
+ *
+ * @param status The status to log.
+ * @param philo Pointer to the philosopher whose status is to be logged.
+ * @param debug If non-zero, output detailed logs;
+ * otherwise, output simplified logs.
+ */
 void	write_status(t_philo_status status, t_philo *philo, int debug)
 {
 	long	elapsed;
@@ -54,7 +78,7 @@ void	write_status(t_philo_status status, t_philo *philo, int debug)
 			printf(W"%6ld"RST" %d is sleeping\n", elapsed, philo->id);
 		else if (status == THINKING && !simulation_finished(philo->table))
 			printf(W"%6ld"RST" %d is thinking\n", elapsed, philo->id);
-		else if (status == DIED && !simulation_finished(philo->table))
+		else if (status == DIED)
 			printf(W"%6ld"RST" %d is dead\n", elapsed, philo->id);
 	}
 	pthread_mutex_unlock(&philo->table->write_lock);

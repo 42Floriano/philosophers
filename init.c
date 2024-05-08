@@ -6,12 +6,23 @@
 /*   By: albertini <albertini@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:15:50 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/08 10:37:43 by albertini        ###   ########.fr       */
+/*   Updated: 2024/05/08 14:00:53 by albertini        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/**
+ * Assigns forks to a philosopher in a way that 
+ * prevents deadlock. 
+ * Philosophers are assigned forks alternately 
+ * to ensure that not all grab the left or right fork first.
+ *
+ * @param philo Pointer to the philosopher structure.
+ * @param forks Array of forks available on the table.
+ * @param pos The position of the philosopher at the table,
+ * which dictates fork assignment.
+ */
 static void	assign_forks(t_philo *philo, t_fork *forks, int pos)
 {
 	int	philo_nb;
@@ -26,6 +37,13 @@ static void	assign_forks(t_philo *philo, t_fork *forks, int pos)
 	}
 	return ;
 }
+
+/**
+ * Initializes all philosophers' data structures,
+ * including setting initial values and assigning forks based on their position.
+ *
+ * @param table Pointer to the table structure that holds all simulation data.
+ */
 
 static void	philo_init(t_table *table)
 {
@@ -47,6 +65,12 @@ static void	philo_init(t_table *table)
 	return ;
 }
 
+/**
+ * Initializes all simulation data, including philosophers and forks. Allocates
+ * memory and sets up mutexes for synchronization.
+ *
+ * @param table Pointer to the table structure to initialize.
+ */
 void	data_init(t_table *table)
 {
 	int	i;

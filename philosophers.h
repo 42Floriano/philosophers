@@ -6,7 +6,7 @@
 /*   By: albertini <albertini@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:18:55 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/08 11:14:11 by albertini        ###   ########.fr       */
+/*   Updated: 2024/05/08 14:15:39 by albertini        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@
 # define C      "\033[1;36m"   /* Bold Cyan */
 # define W      "\033[1;37m"   /* Bold White */
 
-# define DEBUG_MODE 1
+# define DEBUG_MODE 0
 
+// ***** Enumerations ******
 typedef enum e_time_code
 {
 	SECOND,
@@ -56,10 +57,10 @@ typedef enum e_status
 	DIED,
 }			t_philo_status;
 
+// ***** Structures ******
 typedef struct s_table		t_table;
 typedef pthread_mutex_t		t_mtx;
 
-// ./ philo 5 800 200 200 [5]
 typedef struct s_fork
 {
 	t_mtx	fork;
@@ -97,6 +98,7 @@ struct s_table
 	t_philo		*philos;
 };
 
+// ***** Prototypes ******
 // Dinner
 void	thinking(t_philo *philo, int pre_simulation);
 void	dinner_start(t_table *table);
@@ -132,4 +134,5 @@ void	write_status(t_philo_status status, t_philo *philo, int debug);
 
 // Monitor 
 void	*monitor_dinner(void *data);
+
 #endif

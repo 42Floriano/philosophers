@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertini <albertini@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:54 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/07 16:39:38 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:56:49 by albertini        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/**
+ * Checks if a philosopher has died by comparing
+ * the time elapsed since their last meal
+ * to the time allowed before dying.
+ *
+ * @param philo Pointer to the philosopher's data structure.
+ * @return 1 if the philosopher has died, 0 otherwise.
+ */
 static int	philo_died(t_philo *philo)
 {
 	long	elapsed;
@@ -27,6 +35,16 @@ static int	philo_died(t_philo *philo)
 	return (0);
 }
 
+/**
+ * Continuously monitors all philosophers in 
+ * the simulation to check if any have died.
+ * If a philosopher has died, it sets 
+ * the simulation to end and updates the status.
+ *
+ * @param data Pointer to the shared table data structure used in the simulation.
+ * @return NULL after the function completes execution 
+ * (conforms to pthreads requirements).
+ */
 void	*monitor_dinner(void *data)
 {
 	int		i;
