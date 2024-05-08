@@ -6,7 +6,7 @@
 /*   By: albertini <albertini@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:55:38 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/08 11:20:05 by albertini        ###   ########.fr       */
+/*   Updated: 2024/05/08 11:55:34 by albertini        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,3 @@ void	clean(t_table *table)
 	free(table->forks);
 	free(table->philos);
 }
-

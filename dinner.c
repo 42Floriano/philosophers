@@ -6,7 +6,7 @@
 /*   By: albertini <albertini@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:09:09 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/08 11:12:27 by albertini        ###   ########.fr       */
+/*   Updated: 2024/05/08 11:58:00 by albertini        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	eat(t_philo *philo)
 	precise_usleep(philo->table->time_to_eat, philo->table);
 	if (philo->table->nbr_limit_meals > 0
 		&& philo->meals_count == philo->table->nbr_limit_meals)
-			set_int(&philo->philo_mutex, &philo->full, 1);
+		set_int(&philo->philo_mutex, &philo->full, 1);
 	pthread_mutex_unlock(&philo->first_fork->fork);
 	pthread_mutex_unlock(&philo->second_fork->fork);
 }
@@ -107,12 +107,8 @@ void	dinner_start(t_table *table)
 	table->start_simulation = gettime(MILLISECOND);
 	set_int(&table->table_mutex, &table->all_threads_ready, 1);
 	i = 0;
-	while (i < table->philo_nbr)
-	{
+	while (i++ < table->philo_nbr)
 		pthread_join(table->philos[i].thread_id, NULL);
-		i++;
-	}
 	set_int(&table->table_mutex, &table->end_simulation, 1);
 	pthread_join(table->monitor, NULL);
-	return ;
 }
