@@ -6,15 +6,28 @@
 /*   By: albertini <albertini@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:09:09 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/08 10:33:14 by albertini        ###   ########.fr       */
+/*   Updated: 2024/05/08 11:12:27 by albertini        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void	thinking(t_philo *philo)
+void	thinking(t_philo *philo, int pre_simulation)
 {
-	write_status(THINKING, philo, DEBUG_MODE);
+	long	t_eat;
+	long	t_sleep;
+	long	t_think;
+
+	if (pre_simulation == 0)
+		write_status(THINKING, philo, DEBUG_MODE);
+	if (philo->table->philo_nbr % 2 == 0)
+		return ;
+	t_eat = philo->table->time_to_eat;
+	t_sleep = philo->table->time_to_sleep;
+	t_think = t_eat * 2 - t_sleep;
+	if (t_think < 0)
+		t_think = 0;
+	precise_usleep(t_think * 0.42, philo->table);
 }
 
 void	*lone_philo(void *data)
@@ -58,6 +71,7 @@ static void	*dinner_simulation(void *data)
 	set_long(&philo->philo_mutex, &philo->last_meal_time, gettime(MILLISECOND));
 	increase_long(&philo->table->table_mutex,
 		&philo->table->threads_running_nbr);
+	de_synchro(philo);
 	while (!simulation_finished(philo->table))
 	{
 		if (philo->full)
@@ -65,7 +79,7 @@ static void	*dinner_simulation(void *data)
 		eat(philo);
 		write_status(SLEEPING, philo, DEBUG_MODE);
 		precise_usleep(philo->table->time_to_sleep, philo->table);
-		thinking(philo);
+		thinking(philo, 0);
 	}
 	return (NULL);
 }

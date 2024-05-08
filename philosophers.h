@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertini <albertini@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:18:55 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/07 16:07:13 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/08 11:14:11 by albertini        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define C      "\033[1;36m"   /* Bold Cyan */
 # define W      "\033[1;37m"   /* Bold White */
 
-#define DEBUG_MODE 1
+# define DEBUG_MODE 1
 
 typedef enum e_time_code
 {
@@ -97,7 +97,8 @@ struct s_table
 	t_philo		*philos;
 };
 
-// Main
+// Dinner
+void	thinking(t_philo *philo, int pre_simulation);
 void	dinner_start(t_table *table);
 
 // Utils
@@ -124,6 +125,7 @@ int		simulation_finished(t_table *table);
 void	wait_all_threads(t_table *table);
 int		all_threads_running(t_mtx *mutex, long *threads, long philo_nbr);
 void	increase_long(t_mtx *mutex, long *value);
+void	de_synchro(t_philo *philo);
 
 // Write
 void	write_status(t_philo_status status, t_philo *philo, int debug);

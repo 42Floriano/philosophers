@@ -6,7 +6,7 @@
 /*   By: albertini <albertini@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:55:38 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/08 10:40:21 by albertini        ###   ########.fr       */
+/*   Updated: 2024/05/08 11:20:05 by albertini        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ long	gettime(t_time_code time_code)
 	struct timeval	tv;
 
 	if (gettimeofday(&tv, NULL))
-		error_exit("Gettimeofthedaz failed");
+		error_exit("Gettimeoftheday failed");
 	if (time_code == SECOND)
 		return (tv.tv_sec + (tv.tv_usec / 1000000));
 	else if (time_code == MILLISECOND)
@@ -58,8 +58,8 @@ void	precise_usleep(long usec, t_table *table)
 			break ;
 		elapsed = gettime(MICROSECOND) - start;
 		rem = usec - elapsed;
-		if (rem > 1000)
-			usleep(usec / 2);
+		if (rem > 10000)
+			usleep(rem / 2);
 		else
 		{
 			while (gettime(MICROSECOND) - start < usec)
