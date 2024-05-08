@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertini <albertini@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:55:38 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/07 16:49:01 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/08 10:40:21 by albertini        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	clean(t_table *table)
 	int		i;
 
 	i = 0;
-	while (table->philo_nbr >= i)
+	while (table->philo_nbr > i)
 	{
 		philo = table->philos + i;
 		pthread_mutex_destroy(&philo->philo_mutex);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertini <albertini@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:15:50 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/07 14:13:13 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/08 10:37:43 by albertini        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	assign_forks(t_philo *philo, t_fork *forks, int pos)
 	philo->second_fork = &forks[pos];
 	if (philo->id % 2 == 0)
 	{
-	philo->first_fork = &forks[pos];
-	philo->second_fork = &forks[(pos + 1) % philo_nb];
+		philo->first_fork = &forks[pos];
+		philo->second_fork = &forks[(pos + 1) % philo_nb];
 	}
 	return ;
 }
@@ -57,8 +57,8 @@ void	data_init(t_table *table)
 	table->threads_running_nbr = 0;
 	table->philos = safe_malloc(sizeof(t_philo) * table->philo_nbr);
 	table->forks = safe_malloc(sizeof(t_fork) * table->philo_nbr);
-	pthread_mutex_init(&table->table_mutex, NULL);
 	pthread_mutex_init(&table->write_lock, NULL);
+	pthread_mutex_init(&table->table_mutex, NULL);
 	while (i < table->philo_nbr)
 	{
 		pthread_mutex_init(&table->forks[i].fork, NULL);

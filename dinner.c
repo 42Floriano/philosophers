@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dinner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albertini <albertini@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:09:09 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/07 17:04:11 by falberti         ###   ########.fr       */
+/*   Updated: 2024/05/08 10:33:14 by albertini        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,7 @@ void	dinner_start(t_table *table)
 		pthread_join(table->philos[i].thread_id, NULL);
 		i++;
 	}
+	set_int(&table->table_mutex, &table->end_simulation, 1);
+	pthread_join(table->monitor, NULL);
 	return ;
 }
