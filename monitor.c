@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albertini <albertini@student.42.fr>        +#+  +:+       +#+        */
+/*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:08:54 by falberti          #+#    #+#             */
-/*   Updated: 2024/05/08 13:56:49 by albertini        ###   ########.fr       */
+/*   Updated: 2024/05/13 16:28:02 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	*monitor_dinner(void *data)
 				write_status(DIED, table->philos + i, DEBUG_MODE);
 			}
 		}
+		i++;
 	}
 	return (NULL);
 }
